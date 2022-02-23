@@ -1,0 +1,6 @@
+.welcome_page {
+    background-image: url('../images/bienvenue.jpg');
+    height: 600px;
+    width: 100%;
+    background-size: cover;
+  }
