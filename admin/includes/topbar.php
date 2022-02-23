@@ -157,7 +157,7 @@
                 <div>
                     <div class="text-truncate">Am I a good boy? The reason I ask is because someone
                         told me that people say this to all dogs, even if they aren't good...</div>
-                    <div class="small text-gray-500">Chicken the Dog · 2w</div>
+                    <div class="small text-gray-500">Chicken the Cat · 2w</div>
                 </div>
             </a>
             <a class="dropdown-item text-center small text-gray-500" href="#">Read More Messages</a>
