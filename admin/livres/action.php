@@ -7,7 +7,7 @@ if (!isConnect()){
 }
 include PATH_ADMIN . 'config/bdd.php';
 
-if (isset($_POST['btn_update_book'])){
+if (isset($_POST['btn_update_livre'])){
         /**
      * Traitement des données du formulaire
      * 1) sécuriser les données en entrée
@@ -70,10 +70,10 @@ if (isset($_POST['btn_update_book'])){
         }
         // GESTION DE LA NOUVELLE ILLUSTRATION
         // on enregistre l'endroit ou est le fichier a récuperer
-        $temp_file  = $_FILES['illustration']['tmp_name'];
+        $dossier_temporaire  = $_FILES['illustration']['tmp_name'];
         // on enregistre l'endroit de destination
-        $dest_file  = PATH_ADMIN . 'images/' . $illustration;
-        // var_dump($temp_file, $dest_file);
+        $dossier_destination  = PATH_ADMIN . 'images/' . $illustration;
+        // var_dump($dossier, $dossier_destination);
         if (!move_uploaded_file($dossier_temporaire, $dossier_destination)){
             // erreur le document n'as pas était correctement déplacé
             $_SESSION['error_update_illustration'] = true;
@@ -230,7 +230,7 @@ if (isset($_GET['id'])){
     // on stock le nom de l'image apres avoir recuperer l'information en bdd
     $nom_illustration = $nom_illustration['illustration'];
     // on vérifie que l'image existe
-    $chemin_illustration = PATH_ADMIN . 'img/illustration/' . $nom_illustration;
+    $chemin_illustration = PATH_ADMIN . 'images/' . $nom_illustration;
     if (!is_file($chemin_illustration)){
        // erreur l'illustration n'existe pas
        $_SESSION['error_delete_illustration'] = true;

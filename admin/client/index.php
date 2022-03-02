@@ -61,7 +61,7 @@ $usagers = $requete->fetchAll(PDO::FETCH_ASSOC);
                     </div>
 
                     <table class="table">
-                        <thead class="table-dark">
+                        <thead class="table-dark" >
                             <tr>
                                 <th scope="col">ID</th>
                                 <th scope="col">Nom</th>

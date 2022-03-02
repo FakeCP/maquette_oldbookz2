@@ -22,6 +22,7 @@ include '../config/bdd.php'
 
     <!-- Custom styles for this template-->
     <link href="<?= URL_ADMIN ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -54,13 +55,16 @@ include '../config/bdd.php'
 
                 </div>
 
-                <?php
-                        if (isset($_SESSION['error_update_book']) && ($_SESSION['error_update_book'] == true)) {
-                            alert('danger', 'Erreur de saisie : livre non-ajouté à la base de données');
-                            unset($_SESSION['error_update_book']);
+                <?php 
+                        if (isset($_SESSION['error_illustration']) && $_SESSION['error_illustration'] == true){
+                            alert('danger', 'L\'illustration n\'est pas correctement déplacer ou n\'est pas valide');
+                            unset($_SESSION['error_illustration']);
                         }
-
-                        ?>
+                        if (isset($_SESSION['error_add_livre']) && $_SESSION['error_add_livre'] == true){
+                            alert('danger', 'Le livre n\'a pas été ajouté correctement');
+                            unset($_SESSION['error_add_livre']);
+                        }
+                    ?>
 
                 <form action="action.php" method="POST" enctype="multipart/form-data">
 
@@ -110,6 +114,13 @@ include '../config/bdd.php'
             <?php
             include PATH_ADMIN . 'includes/footer.php';
             ?>
+
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script src="//cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+            <script>
+                $('.select-cat').select2();
+                CKEDITOR.replace('resume');
+            </script>
 
 </body>
 

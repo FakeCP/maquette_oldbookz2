@@ -67,6 +67,7 @@
         //requete sql pour la modif
         $sql = 'UPDATE editeur SET denomination = :denomination, siret = :siret, adresse = :adresse, ville = :ville, code_postal = :code_postal, mail = :mail, numero_tel = :numero_tel WHERE id = :id';
         //executer la requete
+        $requete = $bdd->prepare($sql);
         $data = array (
             ':denomination' => $denomination,
             ':siret' => $siret,
@@ -78,7 +79,7 @@
             ':id' => $id
         );
 
-        $requete = $bdd->prepare($sql);
+       
         
 
         //verif si update est ok

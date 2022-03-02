@@ -2,15 +2,21 @@
 include '../config/config.php';
 include '../config/bdd.php';
 
-if (!isConnect()){
+if (!isConnect()) {
     header('location:' . URL_ADMIN . 'login.php');
-    die; 
+    die;
 }
 // ACCESIBLE SEULEMENT SI ADMINISTRATEUR
-if (!isAdmin()){
+if (!isAdmin()) {
     header('location:' . URL_ADMIN . 'index.php');
-    die; 
+    die;
 }
+
+$sql = "SELECT * FROM role";
+$requete = $bdd->query($sql);
+$roles = $requete->fetchAll(PDO::FETCH_ASSOC);
+// var_dump($roles);
+// die;
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +38,7 @@ if (!isAdmin()){
 
     <!-- Custom styles for this template-->
     <link href="<?= URL_ADMIN ?>css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -81,6 +88,21 @@ if (!isAdmin()){
                             <label for="exampleFormControlInput1" class="form-label">Pseudo</label>
                             <input type="text" name="pseudo" class="form-control" id="exampleFormControlInput1">
                         </div>
+                        <label for="role" class="form-label mt-4">Rôles</label><br>
+                        <select class="select-role w-25" name="role[]" id='role' multiple>
+                            <?php foreach ($roles as $role) : ?>
+                                <?php if (in_array($role['id'], $role_id)) {
+                                    //si in-array trouve l'id du role dans le tableau role de mon utilisateur ($role-id)
+                                    //ça veut dire que mon utilisateur a bien ce role
+                                    $selected = "selected";
+                                } else {
+                                    $selected = "";
+                                    //$selected = "" à l'intérieur car la variable n'a de portée qu'à l'intérieur de la fonction
+                                } ?>
+                                <option value="<?= $role['id'] ?>" <?= $selected ?>><?= $role['libelle'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <!-- //selected après "php categories id" -->
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Mail</label>
                             <input type="text" name="mail" class="form-control" id="exampleFormControlInput1">
@@ -124,6 +146,11 @@ if (!isAdmin()){
             <?php
             include PATH_ADMIN . 'includes/footer.php';
             ?>
+
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script>
+                $('.select-role').select2();
+            </script>
 
 </body>
 

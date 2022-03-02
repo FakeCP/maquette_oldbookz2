@@ -1,31 +1,35 @@
-<?php 
+<?php
 include '../config/config.php';
 include '../config/bdd.php';
 
-if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client'] == true )) {
-                        alert('danger', 'Usager non ajouté');
-                        unset($_SESSION['error_update_client']);
-                    }
+if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client'] == true)) {
+    alert('danger', 'Usager non ajouté');
+    unset($_SESSION['error_update_client']);
+}
 
-        //modifier une prise de contact
-            if (isset($_GET['id'])) {
-                $id = intval($_GET['id']);
-                if ($id > 0) {
-                    //requete sql pour recuperer le contact en bdd
-                $sql = "SELECT * FROM usager WHERE id = ?";
-//executer la requete
-                $requete = $bdd-> prepare($sql);
-                $requete -> execute(array($id));
-//recuperer les infos
-                $usagers = $requete->fetch(PDO::FETCH_ASSOC);
-                } else {
-                    header('location:index.php');
-                    die;
-                }
-            }
+if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client'] == false)) {
+    alert('success', 'Usager bien modifié');
+    unset($_SESSION['error_update_client']);
+}
+//modifier une prise de contact
+if (isset($_GET['id'])) {
+    $id = intval($_GET['id']);
+    if ($id > 0) {
+        //requete sql pour recuperer le contact en bdd
+        $sql = "SELECT * FROM usager WHERE id = ?";
+        //executer la requete
+        $requete = $bdd->prepare($sql);
+        $requete->execute(array($id));
+        //recuperer les infos
+        $usagers = $requete->fetch(PDO::FETCH_ASSOC);
+    } else {
+        header('location:index.php');
+        die;
+    }
+}
 
 
-                        ?>
+?>
 
 
 <!DOCTYPE html>
@@ -80,39 +84,39 @@ if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client']
                 </div>
 
                 <?php
-                        if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client'] == true)) {
-                            alert('danger', 'Erreur de saisie : Usager non-ajouté à la base de données');
-                            unset($_SESSION['error_update_client']);
-                        }
+                if (isset($_SESSION['error_update_client']) && ($_SESSION['error_update_client'] == true)) {
+                    alert('danger', 'Erreur de saisie : Usager non-ajouté à la base de données');
+                    unset($_SESSION['error_update_client']);
+                }
 
-                        ?>
+                ?>
 
                 <form action="action.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $usagers['id'] ?>">
                     <div class="container">
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Nom</label>
-                            <input type="text" name="nom" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['nom']?>">
+                            <input type="text" name="nom" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['nom'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Prénom</label>
-                            <input type="text" name="prenom" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['prenom']?>">
+                            <input type="text" name="prenom" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['prenom'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Adresse</label>
-                            <input type="text" name="adresse" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['adresse']?>">
+                            <input type="text" name="adresse" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['adresse'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Ville</label>
-                            <input type="text" name="ville" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['ville']?>">
+                            <input type="text" name="ville" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['ville'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Code postal</label>
-                            <input type="text" name="code_postal" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['code_postal']?>">
+                            <input type="text" name="code_postal" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['code_postal'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Mail</label>
-                            <input type="text" name="mail" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['mail']?>">
+                            <input type="text" name="mail" class="form-control" id="exampleFormControlInput1" value="<?= $usagers['mail'] ?>">
                         </div>
                         <div class="mb-3 text-center">
                             <label for="exampleFormControlInput1" class="form-label"></label>

@@ -122,7 +122,7 @@ if (isset($_SESSION['error_update_editor']) && ($_SESSION['error_update_editor']
                         <div class="mb-3 text-center">
                             <label for="exampleFormControlInput1" class="form-label"></label>
                             <input type="submit" name="btn_update_editor" class="btn btn-primary" value="Enregistrer">
-                            <a href="<?= URL_ADMIN ?>livres/index.php" class="btn btn-warning">Annuler</a>
+                            <a href="<?= URL_ADMIN ?>editeur/index.php" class="btn btn-warning">Annuler</a>
                         </div>
                     </div>
 

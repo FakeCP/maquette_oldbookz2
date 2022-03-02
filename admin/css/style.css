@@ -4,3 +4,16 @@
     width: 100%;
     background-size: cover;
   }
+
+.container {
+    width: 50%;
+    margin-top: 200px;
+    padding-bottom: 15px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: black;
+}
+
+body {
+  background-color: #C0C0C0;
+}

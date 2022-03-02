@@ -7,11 +7,6 @@ if (!isConnect()) {
     die;
 }
 
-if (isset($_SESSION['error_update_book']) && ($_SESSION['error_update_book'] == true)) {
-    alert('danger', 'Erreur dans la modification');
-    unset($_SESSION['error_update_book']);
-}
-
 //modifier une prise de contact
 if (isset($_GET['id'])) {
     $id = intval($_GET['id']);
@@ -37,6 +32,7 @@ $sql = "SELECT id_categorie FROM categorie_livre WHERE id_livre = ?";
 $req = $bdd->prepare($sql);
 $req->execute([$id]);
 $categorie_livre = $req->fetchAll(PDO::FETCH_NUM);
+var_dump($categorie_livre);
 $categorie_id = [];
 if (count($categorie_livre) >= 1) {
     // stocker toutes les valeurs reçus dans 1 seul tableau
@@ -46,11 +42,9 @@ if (count($categorie_livre) >= 1) {
 } else {
     $categorie_id = $categorie_livre[0];
 }
-// var_dump($categorie_id);
 
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -68,6 +62,7 @@ if (count($categorie_livre) >= 1) {
     <!-- Custom fonts for this template-->
     <link href="<?= URL_ADMIN ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- Custom styles for this template-->
     <link href="<?= URL_ADMIN ?>css/sb-admin-2.min.css" rel="stylesheet">
@@ -103,13 +98,12 @@ if (count($categorie_livre) >= 1) {
 
                 </div>
 
-                <?php
-                if (isset($_SESSION['error_update_book']) && ($_SESSION['error_update_book'] == true)) {
-                    alert('danger', 'Erreur de saisie : livre non-ajouté à la base de données');
-                    unset($_SESSION['error_update_book']);
-                }
-
-                ?>
+                <?php 
+                        if (isset($_SESSION['error_update_livre']) && $_SESSION['error_update_livre'] == true) {
+                            alert('danger', 'Le livre n\'a pas pu être modifié !');
+                            unset($_SESSION['error_update_livre']);
+                        }
+                    ?>
 
                 <form action="action.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="id" value="<?= $livres['id'] ?>">
@@ -138,7 +132,7 @@ if (count($categorie_livre) >= 1) {
                         </div>
                         <div class="mb-3">
                             <label for="disponibilite" class="form-label">Disponibilité :</label>
-                            <input type="text" name="nb_pages" class="form-control" id="disponibilite" value="<?= $livres['disponibilite'] ?>">
+                            <input type="text" name="disponibilite" class="form-control" id="disponibilite" value="<?= $livres['disponibilite'] ?>">
                         </div>
                         <div class="mb-3">
                             <label for="exampleFormControlInput1" class="form-label">Date d'achat</label>
@@ -167,7 +161,7 @@ if (count($categorie_livre) >= 1) {
                             </div>
                         <div class="mb-3 text-center">
                             <label for="exampleFormControlInput1" class="form-label"></label>
-                            <input type="submit" name="btn_update_book" class="btn btn-primary" value="Enregistrer">
+                            <input type="submit" name="btn_update_livre" class="btn btn-primary" value="Enregistrer">
                             <a href="<?= URL_ADMIN ?>livres/index.php" class="btn btn-warning">Annuler</a>
                         </div>
                     </div>
@@ -180,7 +174,10 @@ if (count($categorie_livre) >= 1) {
             <?php
             include PATH_ADMIN . 'includes/footer.php';
             ?>
-
+            <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+            <script>
+                $('.select-cat').select2();
+            </script>
 </body>
 
 </html>

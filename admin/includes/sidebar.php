@@ -124,6 +124,21 @@
     </div>
 </li>
 <!-- Nav Item - Pages Collapse Menu -->
+<li class="nav-item">
+    <a class="nav-link collapsed" href="<?= URL_ADMIN ?>#" data-toggle="collapse" data-target="#location"
+        aria-expanded="true" aria-controls="location">
+        <i class="fas fa-male"></i>
+        <span>Locations</span>
+    </a>
+    <div id="location" class="collapse" aria-labelledby="headingUtilities"
+        data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Gestion locations</h6>
+            <a class="collapse-item" href="<?= URL_ADMIN ?>location/index.php">Liste des locations</a>
+            <a class="collapse-item" href="<?= URL_ADMIN ?>location/add.php">Ajouter une location</a>
+        </div>
+    </div>
+</li>
 
 
 <!-- Divider -->

@@ -66,4 +66,29 @@ function isAdmin() {
     return in_array('admin', $_SESSION['utilisateur']['roles']);
 }
 
+function getCategories($_id_livre, $_bdd){
+    // GENERER LA REQ SQL qui permet de recuperer les catégories par rapport a un ID de livre
+    $sql = 'SELECT categorie.libelle 
+    FROM categorie_livre 
+    INNER JOIN categorie ON categorie_livre.id_categorie = categorie.id 
+    WHERE categorie_livre.id_livre = ?';
+    // on prepare la req
+    $req = $_bdd->prepare($sql);
+    // on execute la req avec en param l'id du livre rechercher
+    $req->execute([$_id_livre]);
+    // on recup les data sous forme de tableau associatif
+    $categories = $req->fetchAll(PDO::FETCH_ASSOC);
+    // on créer un tableau qui va permettre de stocker les catégories
+    $cat_livre = [];
+    // on boucle sur la liste des catégories recu
+    foreach ($categories as $categorie) {
+        // a cause du fetchAll on recoit un tableau de tableau
+        // var_dump($categorie);
+        // var_dump(implode($categorie));
+        // on stock la valeur que contient le "sous-tableau" grace a la fonction implode qui permet de transformer un array en string 
+        $cat_livre[] = implode($categorie);
+    }
+    // on retourne le tableau des catégories sous forme de chaine de caractères
+    return implode(', ', $cat_livre);
+}
         

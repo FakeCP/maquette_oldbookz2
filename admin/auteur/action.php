@@ -66,10 +66,17 @@ if (isset($_POST['btn_update_author'])) {
     $code_postal = htmlentities($_POST['code_postal']);
     $mail = htmlentities($_POST['mail']);
     $numero = htmlentities($_POST['numero']);
-    $photo = ($_FILES['photo']['name']);
+    $photo = $_FILES['photo']['name'];
 
+    $dossier_temporaire = $_FILES['photo']['tmp_name'];
+    $dossier_destination = PATH_ADMIN . 'images/' . $photo;
+    var_dump($dossier_temporaire, $dossier_destination);
+
+    if (!move_uploaded_file($dossier_temporaire, $dossier_destination)) {
+        die('Erreur dans le déplacement du fichier');
+    }
     //requete sql pour la modif
-    $sql = 'UPDATE auteur SET nom = :nom, prenom = :prenom, nom_de_plume = :nom_de_plume, adresse = :adresse, ville = :ville, code_postal = :code_postal, mail = :mail, numero = :numero, photo =:photo WHERE id = :id';
+    $sql = 'UPDATE auteur SET nom = :nom, prenom = :prenom, nom_de_plume = :nom_de_plume, adresse = :adresse, ville = :ville, code_postal = :code_postal, mail = :mail, numero = :numero, photo = :photo WHERE id = :id';
     //executer la requete
     $data = array
     (':nom' => $nom, 
